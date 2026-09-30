@@ -15,7 +15,7 @@ Hosted free on GitHub Pages from the `main` branch (repository root). Changes pu
 go live automatically. Class times and signups live in the club's Spond group.
 
 ## Events calendar
-The Events section embeds the Google Calendar of capegirardeauhema@gmail.com.
+The Events section embeds the club Google Calendar (a secondary calendar owned by capegirardeauhema@gmail.com; its ID is in index.html).
 - The calendar must be public: Google Calendar > Settings > the calendar > Access permissions >
   "Make available to public" with "See all event details".
 - To let other admins add events: same page > "Share with specific people or groups" >
