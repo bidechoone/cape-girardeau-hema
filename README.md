@@ -7,7 +7,7 @@ A plain static site: no build step, no framework.
 - `assets/logo-original.png`: the club logo as supplied; `logo.jpg` (hero), `logo-small.png` (menu + browser tab) and `apple-touch-icon.png` are resized copies
 - `assets/photos/`: club photos for the Photos section (add a `<figure class="photo">` line per photo in index.html)
 - `assets/sponsors/`: sponsor logos (`hema-alliance.png`: stacked HEMA Alliance mark from their visual identity file)
-- `documents/`: put PDFs here (`safety-policy.pdf`, `waiver.pdf` and `hema-alliance-waiver.pdf` added; `bylaws.pdf` to come), then swap the
+- `documents/`: put PDFs here (all added: `safety-policy.pdf`, `code-of-conduct.pdf`, `bylaws.pdf`, `waiver.pdf`, `hema-alliance-waiver.pdf`), then swap the
   "coming soon" tag in the Documents section for the `Open` link in the comment beside it
 
 ## Hosting
