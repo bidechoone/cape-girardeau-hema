@@ -215,3 +215,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 .event-pick { border: 0; margin: 0; padding: 0; display: grid; gap: .5rem; }
 .event-pick legend { margin-bottom: .4rem; }
 .form-status.form-error { color: var(--accent); }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+.event-callout { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); padding: 1rem 1.25rem; margin-bottom: 1.5rem; }
+.event-callout h3 { margin: 0 0 .25rem; }
+.event-callout .desc { margin: 0; color: var(--muted); }

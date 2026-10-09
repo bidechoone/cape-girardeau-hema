@@ -43,6 +43,19 @@ var REGISTRATION = {
     status.hidden = false;
   }
 
+  // Until every setting above is filled in, show that registration isn't open.
+  function isOpen() {
+    var links = REGISTRATION.paymentLinks;
+    return !!REGISTRATION.sheetEndpoint && ["early", "regular"].every(function (tier) {
+      return ["beginners-synthetic", "steel-open", "both"].every(function (key) { return !!links[tier][key]; });
+    });
+  }
+  if (!isOpen()) {
+    button.disabled = true;
+    button.textContent = "Registration opens soon";
+    say("Registration isn't open yet. Check back soon, or email capegirardeauhema@gmail.com with questions.");
+  }
+
   function chosenEvents() {
     return Array.prototype.slice.call(form.querySelectorAll('input[name="events"]:checked'))
       .map(function (box) { return box.value; });
@@ -57,7 +70,7 @@ var REGISTRATION = {
     var key = events.length === 2 ? "both" : events[0];
     var early = new Date() < new Date(REGISTRATION.earlyUntil);
     var payUrl = REGISTRATION.paymentLinks[early ? "early" : "regular"][key];
-    if (!REGISTRATION.sheetEndpoint || !payUrl) {
+    if (!isOpen()) {
       say("Registration isn't open yet. Check back soon, or email capegirardeauhema@gmail.com.", true);
       return;
     }
