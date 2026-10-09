@@ -1,8 +1,9 @@
-// Tournament registration: send the form to the form service, then open the
-// checkout for the chosen event(s). Fill in the three settings below to go live.
+// Tournament registration: save the form to the club's Google Sheet, then open
+// the checkout for the chosen event(s). Fill in the settings below to go live.
 var REGISTRATION = {
-  // Where registrations are sent (a Formspree form endpoint).
-  formEndpoint: "",
+  // The Google Apps Script web app URL that writes rows to the registration
+  // sheet (see tools/registration-sheet.gs). Ends in /exec.
+  sheetEndpoint: "",
   // Checkout links (Stripe Payment Links) for each combination of events.
   paymentLinks: {
     "beginners-synthetic": "",
@@ -45,23 +46,24 @@ var REGISTRATION = {
 
     var key = events.length === 2 ? "both" : events[0];
     var payUrl = REGISTRATION.paymentLinks[key];
-    if (!REGISTRATION.formEndpoint || !payUrl) {
+    if (!REGISTRATION.sheetEndpoint || !payUrl) {
       say("Registration isn't open yet. Check back soon, or email capegirardeauhema@gmail.com.", true);
       return;
     }
 
     // One ID ties the registration to its payment in the checkout records.
     var regId = "CGH-" + Date.now().toString(36).toUpperCase() + "-" + Math.random().toString(36).slice(2, 6).toUpperCase();
-    var data = new FormData(form);
+    var data = new URLSearchParams(new FormData(form));
     data.delete("events");
     data.append("events", events.join(", "));
     data.append("registration_id", regId);
 
     button.disabled = true;
     say("Saving your registration…");
-    fetch(REGISTRATION.formEndpoint, { method: "POST", body: data, headers: { Accept: "application/json" } })
-      .then(function (res) {
-        if (!res.ok) throw new Error("status " + res.status);
+    // Google Apps Script doesn't send CORS headers, so the response can't be
+    // read; a network error is the only failure the page can see.
+    fetch(REGISTRATION.sheetEndpoint, { method: "POST", mode: "no-cors", body: data })
+      .then(function () {
         say("Saved. Taking you to payment…");
         var url = payUrl + (payUrl.indexOf("?") < 0 ? "?" : "&") +
           "prefilled_email=" + encodeURIComponent(data.get("email")) +
