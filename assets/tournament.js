@@ -4,11 +4,21 @@ var REGISTRATION = {
   // The Google Apps Script web app URL that writes rows to the registration
   // sheet (see tools/registration-sheet.gs). Ends in /exec.
   sheetEndpoint: "",
+  // Registrations made before this moment use the early (discounted) links.
+  // End of December 16, 2026, Cape Girardeau time.
+  earlyUntil: "2026-12-17T00:00:00-06:00",
   // Checkout links (Stripe Payment Links) for each combination of events.
   paymentLinks: {
-    "beginners-synthetic": "",
-    "steel-open": "",
-    "both": ""
+    early: {                      // $10 off
+      "beginners-synthetic": "",  // $30
+      "steel-open": "",           // $45
+      "both": ""                  // $65
+    },
+    regular: {
+      "beginners-synthetic": "",  // $40
+      "steel-open": "",           // $55
+      "both": ""                  // $75
+    }
   }
 };
 
@@ -45,7 +55,8 @@ var REGISTRATION = {
     if (!form.checkValidity()) { form.reportValidity(); say("Fill in the highlighted fields.", true); return; }
 
     var key = events.length === 2 ? "both" : events[0];
-    var payUrl = REGISTRATION.paymentLinks[key];
+    var early = new Date() < new Date(REGISTRATION.earlyUntil);
+    var payUrl = REGISTRATION.paymentLinks[early ? "early" : "regular"][key];
     if (!REGISTRATION.sheetEndpoint || !payUrl) {
       say("Registration isn't open yet. Check back soon, or email capegirardeauhema@gmail.com.", true);
       return;
