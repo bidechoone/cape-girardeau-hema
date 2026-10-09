@@ -212,3 +212,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 .register-slot { padding: 3rem 1.5rem; text-align: center; color: var(--muted); display: grid; gap: .5rem; justify-items: center; }
 .register-slot strong { font-family: var(--font-display); font-weight: 400; font-size: 1.4rem; color: var(--ink); }
 @media (max-width: 30rem) { .tourney-event .facts div { grid-template-columns: 1fr; gap: .2rem; } }
+.event-pick { border: 0; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.event-pick legend { margin-bottom: .4rem; }
+.form-status.form-error { color: var(--accent); }

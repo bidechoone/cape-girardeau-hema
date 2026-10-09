@@ -112,15 +112,49 @@
       <h2>Register</h2>
       <p>Before the tournament, every fencer needs to sign the <a href="documents/waiver.pdf" target="_blank" rel="noopener">club liability waiver</a> and the <a href="documents/hema-alliance-waiver.pdf" target="_blank" rel="noopener">HEMA Alliance waiver</a>. Fencers under 18 need a parent or guardian to sign.</p>
     </div>
-    <div class="register-box">
-      <!-- REGISTRATION-FORM: replace this placeholder with the Google Form embed, e.g.
-           <iframe class="register-form" src="https://docs.google.com/forms/d/e/FORM_ID/viewform?embedded=true" title="Tournament registration form" loading="lazy"></iframe> -->
-      <div class="register-slot">
-        <strong>Registration form</strong>
-        <p>The sign-up form will appear here.</p>
+    <form class="signup" id="register-form" novalidate>
+      <div>
+        <h3>Registration</h3>
+        <p class="form-note">Fill this out, then you'll go to a secure checkout to pay your entry fee. Your spot is confirmed once payment goes through.</p>
       </div>
-    </div>
-    <p class="form-note register-note">Payment: <span class="placeholder">how to pay TBD</span></p>
+      <fieldset class="field full event-pick">
+        <legend>Event(s)</legend>
+        <div class="check"><input id="ev-synthetic" name="events" type="checkbox" value="beginners-synthetic"><label for="ev-synthetic">Beginners Tournament, synthetic longsword</label></div>
+        <div class="check"><input id="ev-steel" name="events" type="checkbox" value="steel-open"><label for="ev-steel">Steel Longsword Open</label></div>
+      </fieldset>
+      <div class="form-grid">
+        <div class="field"><label for="r-name">Full name</label><input id="r-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="r-email">Email</label><input id="r-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="r-phone">Phone</label><input id="r-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <div class="field"><label for="r-club">Club (or "none")</label><input id="r-club" name="club" required></div>
+        <div class="field"><label for="r-hemaratings">HEMA Ratings ID (optional)</label><input id="r-hemaratings" name="hema_ratings_id" inputmode="numeric"></div>
+        <div class="field">
+          <label for="r-minor">Age on tournament day</label>
+          <select id="r-minor" name="age_group" required>
+            <option value="">Choose one</option>
+            <option value="adult">18 or older</option>
+            <option value="minor">Under 18</option>
+          </select>
+        </div>
+        <div class="field full" id="guardian-field" hidden><label for="r-guardian">Parent or guardian name (required for fencers under 18)</label><input id="r-guardian" name="guardian_name"></div>
+        <div class="field"><label for="r-ec-name">Emergency contact name</label><input id="r-ec-name" name="emergency_contact_name" required></div>
+        <div class="field"><label for="r-ec-phone">Emergency contact phone</label><input id="r-ec-phone" name="emergency_contact_phone" type="tel" required></div>
+        <div class="field full check">
+          <input id="r-waivers" name="agrees_to_waivers" type="checkbox" value="yes" required>
+          <label for="r-waivers">I have read the <a href="documents/waiver.pdf" target="_blank" rel="noopener">club waiver</a>, <a href="documents/hema-alliance-waiver.pdf" target="_blank" rel="noopener">HEMA Alliance waiver</a> and <a href="documents/code-of-conduct.pdf" target="_blank" rel="noopener">code of conduct</a>, and I will sign them before I fence.</label>
+        </div>
+        <div class="field full check">
+          <input id="r-gear" name="has_required_gear" type="checkbox" value="yes" required>
+          <label for="r-gear">I will bring the <a href="#gear">required gear</a> for each event I enter.</label>
+        </div>
+      </div>
+      <p class="hidden-field"><label for="r-botcheck">Leave this empty</label><input id="r-botcheck" name="botcheck" tabindex="-1" autocomplete="off"></p>
+      <div class="cta-row">
+        <button class="btn btn-primary" type="submit" id="register-submit">Continue to payment</button>
+        <p class="form-status" id="register-status" role="status" hidden></p>
+      </div>
+    </form>
+
   </div>
 </section>
 
@@ -132,5 +166,6 @@
 </footer>
 <!--PREVIEW-END-->
 <script src="assets/site.js"></script>
+<script src="assets/tournament.js"></script>
 </body>
 </html>
