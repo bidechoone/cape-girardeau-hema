@@ -199,3 +199,24 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   border: 1.5px dashed var(--line); border-radius: 4px; font-family: var(--font-label); font-size: .85rem; color: var(--muted);
 }
 @media (max-width: 30rem) { .sponsor { grid-template-columns: 1fr; } .sponsor-logo { width: 7rem; } }
+
+/* Tournament page */
+.tourney-facts { grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 1rem 2rem; border-block: 1px solid var(--line); padding-block: 1.25rem; }
+.tourney-facts div { grid-template-columns: 1fr; gap: .2rem; border-bottom: 0; padding-bottom: 0; }
+.tourney-events { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+.tourney-event { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 1.5rem; display: grid; gap: .75rem; align-content: start; min-width: 0; }
+.tourney-event .facts div { grid-template-columns: 8rem 1fr; }
+.tourney-note, .register-note { margin-top: 1rem; }
+.register-box { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.register-form { display: block; width: 100%; height: 70rem; border: 0; background: #ffffff; }
+.register-slot { padding: 3rem 1.5rem; text-align: center; color: var(--muted); display: grid; gap: .5rem; justify-items: center; }
+.register-slot strong { font-family: var(--font-display); font-weight: 400; font-size: 1.4rem; color: var(--ink); }
+@media (max-width: 30rem) { .tourney-event .facts div { grid-template-columns: 1fr; gap: .2rem; } }
+.event-pick { border: 0; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.event-pick legend { margin-bottom: .4rem; }
+.form-status.form-error { color: var(--accent); }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+.event-callout { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); padding: 1rem 1.25rem; margin-bottom: 1.5rem; }
+.event-callout h3 { margin: 0 0 .25rem; }
+.event-callout .desc { margin: 0; color: var(--muted); }
+[hidden] { display: none !important; }
