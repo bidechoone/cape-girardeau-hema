@@ -3,7 +3,7 @@
 var REGISTRATION = {
   // The Google Apps Script web app URL that writes rows to the registration
   // sheet (see tools/registration-sheet.gs). Ends in /exec.
-  sheetEndpoint: "",
+  sheetEndpoint: "https://script.google.com/macros/s/AKfycbz9sK3Abp7dQOtWuOPS4DU4x_YsDIGQUomk-oqHXcBR7dILbvkofyvnhwadKjyH6kM/exec",
   // Registrations made before this moment use the early (discounted) links.
   // End of December 16, 2026, Cape Girardeau time.
   earlyUntil: "2026-12-17T00:00:00-06:00",
