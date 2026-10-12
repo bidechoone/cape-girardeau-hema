@@ -50,14 +50,7 @@ var REGISTRATION = {
       return ["beginners-synthetic", "steel-open", "both"].every(function (key) { return !!links[tier][key]; });
     });
   }
-  // Test mode (tournament.html?test=1): saves the entry to the sheet with a
-  // TEST- registration ID and skips payment, so the sheet can be checked
-  // before the checkout links exist.
-  var testMode = /[?&]test=1(&|$)/.test(window.location.search);
-  if (testMode) {
-    button.textContent = "Send test entry";
-    say("Test mode: this entry goes to the registration sheet with an ID starting TEST-, and there's no payment step.");
-  } else if (!isOpen()) {
+  if (!isOpen()) {
     button.disabled = true;
     button.textContent = "Registration opens soon";
     say("Registration isn't open yet. Check back soon, or email capegirardeauhema@gmail.com with questions.");
@@ -77,17 +70,13 @@ var REGISTRATION = {
     var key = events.length === 2 ? "both" : events[0];
     var early = new Date() < new Date(REGISTRATION.earlyUntil);
     var payUrl = REGISTRATION.paymentLinks[early ? "early" : "regular"][key];
-    if (testMode && !REGISTRATION.sheetEndpoint) {
-      say("Test mode needs the sheet URL (sheetEndpoint) filled in first.", true);
-      return;
-    }
-    if (!testMode && !isOpen()) {
+    if (!isOpen()) {
       say("Registration isn't open yet. Check back soon, or email capegirardeauhema@gmail.com.", true);
       return;
     }
 
     // One ID ties the registration to its payment in the checkout records.
-    var regId = (testMode ? "TEST-" : "CGH-") + Date.now().toString(36).toUpperCase() + "-" + Math.random().toString(36).slice(2, 6).toUpperCase();
+    var regId = "CGH-" + Date.now().toString(36).toUpperCase() + "-" + Math.random().toString(36).slice(2, 6).toUpperCase();
     var data = new URLSearchParams(new FormData(form));
     data.delete("events");
     data.append("events", events.join(", "));
@@ -99,11 +88,6 @@ var REGISTRATION = {
     // read; a network error is the only failure the page can see.
     fetch(REGISTRATION.sheetEndpoint, { method: "POST", mode: "no-cors", body: data })
       .then(function () {
-        if (testMode) {
-          button.disabled = false;
-          say("Test entry sent with ID " + regId + ". Look for that row in the Registrations tab of the sheet.");
-          return;
-        }
         say("Saved. Taking you to payment…");
         var url = payUrl + (payUrl.indexOf("?") < 0 ? "?" : "&") +
           "prefilled_email=" + encodeURIComponent(data.get("email")) +
