@@ -224,3 +224,4 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 .rule-group { background: var(--surface); border: 1px solid var(--line); padding: 1rem 1.25rem; scroll-margin-top: 6rem; }
 .rule-group h3 { margin: 0 0 .5rem; }
 .rule-group ul { margin: 0; padding-left: 1.1rem; display: grid; gap: .4rem; }
+.rule-group ul ul { margin-top: .4rem; }
