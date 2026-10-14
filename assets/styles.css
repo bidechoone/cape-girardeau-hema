@@ -227,3 +227,4 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 .rule-group ul ul { margin-top: .4rem; }
 .rule-wide { grid-column: 1 / -1; }
 .rule-group > p { margin: 0 0 .6rem; }
+.support-club { margin-top: 1.5rem; }
