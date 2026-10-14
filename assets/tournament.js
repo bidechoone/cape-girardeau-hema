@@ -4,21 +4,14 @@ var REGISTRATION = {
   // The Google Apps Script web app URL that writes rows to the registration
   // sheet (see tools/registration-sheet.gs). Ends in /exec.
   sheetEndpoint: "https://script.google.com/macros/s/AKfycbz9sK3Abp7dQOtWuOPS4DU4x_YsDIGQUomk-oqHXcBR7dILbvkofyvnhwadKjyH6kM/exec",
-  // Registrations made before this moment use the early (discounted) links.
-  // End of December 16, 2026, Cape Girardeau time.
+  // The early-registration note (code EARLYBIRD in Stripe, $10 off) is shown
+  // until the end of December 16, 2026, Cape Girardeau time.
   earlyUntil: "2026-12-17T00:00:00-06:00",
-  // Checkout links (Stripe Payment Links) for each combination of events.
+  // Checkout links (Stripe Payment Links, regular prices) for each choice.
   paymentLinks: {
-    early: {                      // $10 off
-      "beginners-synthetic": "",  // $30
-      "steel-open": "",           // $45
-      "both": ""                  // $65
-    },
-    regular: {
-      "beginners-synthetic": "",  // $40
-      "steel-open": "",           // $55
-      "both": ""                  // $75
-    }
+    "beginners-synthetic": "https://buy.stripe.com/9B614m73a6TZ9375vu93y00",  // $40
+    "steel-open": "https://buy.stripe.com/28EfZg2MU1zF5QV4rq93y01",           // $55
+    "both": "https://buy.stripe.com/6oUaEWevC3HN7Z34rq93y02"                  // $75
   }
 };
 
@@ -46,8 +39,8 @@ var REGISTRATION = {
   // Until every setting above is filled in, show that registration isn't open.
   function isOpen() {
     var links = REGISTRATION.paymentLinks;
-    return !!REGISTRATION.sheetEndpoint && ["early", "regular"].every(function (tier) {
-      return ["beginners-synthetic", "steel-open", "both"].every(function (key) { return !!links[tier][key]; });
+    return !!REGISTRATION.sheetEndpoint && ["beginners-synthetic", "steel-open", "both"].every(function (key) {
+      return !!links[key];
     });
   }
   if (!isOpen()) {
@@ -55,6 +48,9 @@ var REGISTRATION = {
     button.textContent = "Registration opens soon";
     say("Registration isn't open yet. Check back soon, or email capegirardeauhema@gmail.com with questions.");
   }
+
+  var earlyNote = document.getElementById("early-note");
+  if (earlyNote) earlyNote.hidden = new Date() >= new Date(REGISTRATION.earlyUntil);
 
   function chosenEvents() {
     return Array.prototype.slice.call(form.querySelectorAll('input[name="events"]:checked'))
@@ -68,8 +64,7 @@ var REGISTRATION = {
     if (!form.checkValidity()) { form.reportValidity(); say("Fill in the highlighted fields.", true); return; }
 
     var key = events.length === 2 ? "both" : events[0];
-    var early = new Date() < new Date(REGISTRATION.earlyUntil);
-    var payUrl = REGISTRATION.paymentLinks[early ? "early" : "regular"][key];
+    var payUrl = REGISTRATION.paymentLinks[key];
     if (!isOpen()) {
       say("Registration isn't open yet. Check back soon, or email capegirardeauhema@gmail.com.", true);
       return;
