@@ -228,3 +228,13 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 .rule-wide { grid-column: 1 / -1; }
 .rule-group > p { margin: 0 0 .6rem; }
 .support-club { margin-top: 1.5rem; }
+.gear-table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.gear-table th, .gear-table td { text-align: left; vertical-align: top; padding: .55rem .6rem; border-top: 1px solid var(--line); }
+.gear-table thead th { border-top: 0; font-family: var(--font-label); color: var(--muted); font-weight: 400; }
+.gear-table tbody th { white-space: nowrap; }
+@media (max-width: 40rem) {
+  .gear-table thead { display: none; }
+  .gear-table tr { display: block; border-top: 1px solid var(--line); padding: .5rem 0; }
+  .gear-table th, .gear-table td { display: block; border: 0; padding: .15rem 0; }
+  .gear-table td[data-label]::before { content: attr(data-label) ": "; font-weight: 600; }
+}
